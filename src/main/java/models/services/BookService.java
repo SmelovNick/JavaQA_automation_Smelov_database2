@@ -4,6 +4,8 @@ import models.domain.AuthorsEntity;
 import models.domain.BooksEntity;
 import models.repositories.BooksRepository;
 
+import java.util.List;
+
 public class BookService {
     private static BooksRepository booksRepository;
 
@@ -31,5 +33,13 @@ public class BookService {
         BooksEntity existingBook = booksRepository.findById(bookId);
         if(existingBook!=null)
         booksRepository.delete(existingBook);
+    }
+
+    public List<BooksEntity> getAllByTitle(String str) {
+        return booksRepository.findAllByTitle(str);
+    }
+
+    public List<BooksEntity> getAllByTitleContains(String substring) {
+        return booksRepository.findAllByTitleContains(substring);
     }
 }

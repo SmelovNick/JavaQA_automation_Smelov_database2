@@ -8,6 +8,4 @@ public interface IRepository<T, Id extends Serializable> {
     void update(T entity);
     T findById(Id id);
     void delete(T entity);
-    List<T> findAll();
-    void deleteAll();
 }

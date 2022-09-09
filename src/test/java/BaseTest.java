@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class BaseTest {
 
@@ -46,6 +47,17 @@ public class BaseTest {
         Assertions.assertNotEquals(bookId1, bookId2);
     }
 
+    @Test
+    public void whenGetBookWithTitleShouldReturnExactId(){
+        List<BooksEntity> book = bookService.getAllByTitle("Nine Stries");
+        Assertions.assertTrue(book.stream().anyMatch(b -> b.getId() ==2));
+    }
+
+    @Test
+    public void whenGetBookWithSubstringShouldReturnExactId(){
+        List<BooksEntity> book = bookService.getAllByTitleContains("Stries");
+        Assertions.assertTrue(book.stream().anyMatch(b -> b.getId() ==2));
+    }
     @AfterEach
     public void teardown(){
         authorsService.delete(authorId);
