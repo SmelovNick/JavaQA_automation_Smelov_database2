@@ -1,16 +1,18 @@
 package models.repositories;
 
 import models.domain.AuthorsEntity;
+import models.domain.BooksEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class AuthorsRepository extends BaseRepository implements IRepository<AuthorsEntity,Integer>{
+public class BooksRepository extends BaseRepository implements IRepository<BooksEntity, Integer>{
+
 
     @Override
-    public void save(AuthorsEntity entity) {
+    public void save(BooksEntity entity) {
         entityManager.getTransaction().begin();
         entityManager.persist(entity);
         entityManager.flush();
@@ -18,34 +20,31 @@ public class AuthorsRepository extends BaseRepository implements IRepository<Aut
     }
 
     @Override
-    public void update(AuthorsEntity entity) {
+    public void update(BooksEntity entity) {
         entityManager.getTransaction().begin();
         entityManager.refresh(entity);
         entityManager.getTransaction().commit();
     }
 
     @Override
-    public AuthorsEntity findById(Integer id) {
-        return entityManager.find(AuthorsEntity.class, id);
+    public BooksEntity findById(Integer id) {
+        return entityManager.find(BooksEntity.class, id);
     }
 
     @Override
-    public void delete(AuthorsEntity entity) {
+    public void delete(BooksEntity entity) {
         entityManager.getTransaction().begin();
         entityManager.remove(entity);
         entityManager.getTransaction().commit();
     }
 
     @Override
-    public List<AuthorsEntity> findAll() {
-        return entityManager.createQuery("from AuthorsEntity").getResultList();
+    public List<BooksEntity> findAll() {
+        return null;
     }
 
     @Override
     public void deleteAll() {
-        List<AuthorsEntity> authors = findAll();
-        for(var author : authors){
-            delete(author);
-        }
+
     }
 }

@@ -1,6 +1,9 @@
 import models.domain.AuthorsEntity;
+import models.domain.BooksEntity;
 import models.services.AuthorsService;
+import models.services.BookService;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,11 +12,16 @@ import java.nio.charset.StandardCharsets;
 public class BaseTest {
 
     private AuthorsService authorsService;
-    private int id;
+    private BookService bookService;
+    private int authorId;
+    private int bookId1;
+    private int bookId2;
+
 
     @BeforeEach
     public void setup(){
         authorsService = new AuthorsService();
+        bookService = new BookService();
     }
 
     @Test
@@ -21,11 +29,27 @@ public class BaseTest {
         AuthorsEntity author = new AuthorsEntity();
         author.setName("F.Scott Fitzgeral");
         author.setCountry("USA");
-        id = authorsService.create(author);
+        authorId = authorsService.create(author);
+    }
+
+    @Test
+    public void whenCreateBookShouldReturnOk() throws Exception{
+        BooksEntity book1 = new BooksEntity();
+        book1.setTitle("Python in Action");
+
+        BooksEntity book2 = new BooksEntity();
+        book2.setTitle("Python in Action");
+
+        bookId1 = bookService.create(book1);
+        bookId2 = bookService.create(book2);
+
+        Assertions.assertNotEquals(bookId1, bookId2);
     }
 
     @AfterEach
     public void teardown(){
-        authorsService.delete(id);
+        authorsService.delete(authorId);
+        bookService.delete(bookId1);
+        bookService.delete(bookId2);
     }
 }

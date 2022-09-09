@@ -42,8 +42,9 @@ public class AuthorsService {
         return author.getId();
     }
     public void delete(int id){
-        AuthorsEntity author = authorsRepository.findById(id);
-        authorsRepository.delete(author);
+        AuthorsEntity existingAuthor = authorsRepository.findById(id);
+        if(existingAuthor!=null)
+        authorsRepository.delete(existingAuthor);
     }
 
     public List<AuthorsEntity> findAll(){
